@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Display all active IPv4 addresses on the current machine
+
+set -euo pipefail
+
+# Use 'ip' command to list IPv4 addresses
+ip -o -4 addr show | awk '{split($4, a, "/"); print a[1]}'

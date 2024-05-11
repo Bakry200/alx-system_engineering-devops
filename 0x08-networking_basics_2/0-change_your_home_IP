@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Configure DNS resolution for localhost and facebook.com
+
+set -euo pipefail
+
+# Check if script is being run as root
+if [[ $(id -u) -ne 0 ]]; then
+    echo "Please run this script with sudo or as root."
+    exit 1
+fi
+
+# Function to update /etc/hosts file
+update_hosts() {
+    local hostname=$1
+    local ip_address=$2
+    local hosts_file="/etc/hosts"
+
+    # Update /etc/hosts with the specified hostname and IP address
+    if grep -qF "$hostname" "$hosts_file"; then
+        sed -i "/$hostname/ s/.*/$ip_address\t$hostname/" "$hosts_file"
+    else
+        echo "$ip_address\t$hostname" >> "$hosts_file"
+    fi
+}
+
+# Update localhost resolution
+update_hosts "localhost" "127.0.0.2"
+
+# Update facebook.com resolution to 8.8.8.8
+update_hosts "facebook.com" "8.8.8.8"
+
+echo "DNS configuration updated successfully."

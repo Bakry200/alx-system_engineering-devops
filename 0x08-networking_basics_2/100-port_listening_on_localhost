@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Bash script to listen on port 98 on localhost
+
+set -euo pipefail
+
+# Function to handle exit
+cleanup() {
+    echo "Stopping script and releasing port..."
+    if [[ -n "${server_pid}" ]]; then
+        kill "${server_pid}" &>/dev/null
+    fi
+}
+
+# Trap SIGINT (Ctrl+C) and SIGTERM (kill) to clean up
+trap cleanup SIGINT SIGTERM
+
+# Check if netcat is installed
+if ! command -v nc &>/dev/null; then
+    echo "Error: netcat (nc) is required but not installed."
+    exit 1
+fi
+
+echo "Starting to listen on port 98..."
+
+# Start listening on port 98
+nc -l 127.0.0.1 98 &
+server_pid=$!
+
+echo "Listening on port 98. Press Ctrl+C to stop."
+
+# Wait for the server process to finish
+wait "${server_pid}"
