@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script displays listening ports and their corresponding PID and program name.
+# Use netstat to get the list of listening sockets and their corresponding PID and program name
+listening_sockets=$(netstat -tuln | grep LISTEN)
+# Print the header
+echo "PID   Program Name       Port"
+# Loop through each line of netstat output
+while IFS= read -r line; do
+    # Extract PID, program name, and port from the line
+    pid=$(echo "$line" | awk '{print $7}' | awk -F'/' '{print $1}')
+    program=$(echo "$line" | awk '{print $7}' | awk -F'/' '{print $2}')
+    port=$(echo "$line" | awk '{print $4}' | awk -F':' '{print $NF}')
+    # Print PID, program name, and port
+    echo "$pid    $program          $port"
+done <<< "$listening_sockets"
