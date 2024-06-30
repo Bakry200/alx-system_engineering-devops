@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script sets up the SSH client configuration to use a specific private key and refuse password authentication
+
+Host myserver
+    HostName <server_ip>
+    User ubuntu
+    IdentityFile ~/.ssh/school
