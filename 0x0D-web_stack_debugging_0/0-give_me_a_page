@@ -1,0 +1,5 @@
+# Dockerfile
+FROM ubuntu:14.04
+RUN apt-get update && apt-get install -y apache2
+RUN echo "Hello Holberton" > /var/www/html/index.html
+EXPOSE 80
