@@ -1,0 +1,62 @@
++--------------+
+            |   Browser    |
+            +--------------+
+                   |
+                   | DNS Request
+                   v
+            +--------------+
+            |     DNS      |
+            +--------------+
+                   |
+                   | IP Address
+                   v
+            +--------------+
+            | TCP/IP Stack |
+            +--------------+
+                   |
+                   | Encrypted Traffic (HTTPS)
+                   v
+            +--------------+
+            |   Firewall   |
+            +--------------+
+                   |
+                   | Request Allowed
+                   v
+            +--------------+
+            | Load Balancer|
+            +--------------+
+                   |
+                   | Distributes Traffic
+                   v
+            +--------------+
+            |  Web Server  |
+            +--------------+
+                   |
+                   | Forwards to
+                   v
+            +--------------+
+            | App Server   |
+            +--------------+
+                   |
+                   | Queries Database
+                   v
+            +--------------+
+            |  Database    |
+            +--------------+
+                   |
+                   | Data Retrieved
+                   v
+            +--------------+
+            | App Server   |
+            +--------------+
+                   |
+                   | Generates Page
+                   v
+            +--------------+
+            |  Web Server  |
+            +--------------+
+                   |
+                   | Serves Page
+                   v
+            +--------------+
+            |   Browser    |
