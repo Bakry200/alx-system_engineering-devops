@@ -18,16 +18,15 @@ def number_of_subscribers(subreddit):
     Returns:
         int: The number of subscribers for the subreddit, or 0 if invalid.
     """
-    # Define the API endpoint and headers
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    headers = {'User-Agent': 'Custom User-Agent for Project'}
 
-    # Send the GET request to the Reddit API
-    response = requests.get(url, headers=headers, allow_redirects=False)
-
-    # Check if the request was successful and contains data
-    if response.status_code == 200:
-        data = response.json()
-        return data['data'].get('subscribers', 0)
-    else:
+    try:
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        if response.status_code == 200:
+            data = response.json()
+            return data.get('data', {}).get('subscribers', 0)
+        else:
+            return 0
+    except requests.RequestException:
         return 0
